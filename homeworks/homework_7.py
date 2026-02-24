@@ -23,7 +23,7 @@ def insert_books(conn, name, author, publication_year, genre, number_of_pages, n
     (name, author, publication_year, genre, number_of_pages, number_of_copies)
     )
     conn.commit()
-
+# hw8
 def get_books_by_author(conn,author):
     result = conn.execute("SELECT * FROM books WHERE author = ? ORDER BY name ASC", (author,))
     return result.fetchall()
@@ -43,8 +43,8 @@ if __name__ == "__main__":
     insert_books(connection, 'Мастер и Маргарита', 'Михаил Булгаков', 1967, 'Роман', 480, 15)
 
 
-    books_by_author = get_books_by_author(conn=connection,author='Стивен Кинг')
-    pprint(books_by_author)
+    books_by_author = get_books_by_author(conn=connection,author='Стивен Кинг') #hw8
+    pprint(books_by_author) #hw8
 
     connection.close()
 
