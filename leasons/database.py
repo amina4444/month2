@@ -14,7 +14,8 @@ def add_student(conn,name, age, city):
     conn.execute("""
     INSERT INTO students(name,age,city) VALUES
     (?,?,?)
-    """, (name, age, city)
+    """,
+    (name, age, city)
     )
     conn.commit()
 
