@@ -1,5 +1,6 @@
 import sqlite3
 from os import name
+from pprint import pprint
 
 
 def create_table(conn):
@@ -23,9 +24,13 @@ def insert_books(conn, name, author, publication_year, genre, number_of_pages, n
     )
     conn.commit()
 
+def get_books_by_author(conn,author):
+    result = conn.execute("SELECT * FROM books WHERE author = ? ORDER BY name ASC", (author,))
+    return result.fetchall()
+
 if __name__ == "__main__":
     connection = sqlite3.connect('books.db')
-    create_table(connection)
+    create_table(conn=connection)
     insert_books(connection,"Клатбище домашних животных","Стивен Кинг", 1983,"horror",400,243434 )
     insert_books(connection,'Преступление и наказание', 'Фёдор Достоевский', 1866, 'Классика', 576, 10)
     insert_books(connection,'1984', 'Джордж Оруэлл', 1949, 'Антиутопия', 320, 25 )
@@ -36,5 +41,10 @@ if __name__ == "__main__":
     insert_books(connection,'Алхимик', 'Пауло Коэльо', 1988, 'Притча', 160, 40 )
     insert_books(connection, 'Sapiens: Краткая история человечества', 'Юваль Ной Харари', 2011, 'Научпоп', 512, 30)
     insert_books(connection, 'Мастер и Маргарита', 'Михаил Булгаков', 1967, 'Роман', 480, 15)
+
+
+    books_by_author = get_books_by_author(conn=connection,author='Стивен Кинг')
+    pprint(books_by_author)
+
     connection.close()
 
